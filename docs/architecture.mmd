@@ -1,0 +1,7 @@
+flowchart LR
+    A[Client] -->|POST /process| B(FFastAPI App)
+    B -->|Validate| C{Pydantic Model}
+    C -->|Valid| D[Process Text]
+    C -->|Invalid| E[400 Error]
+    D -->|Transform| F[Result + Metadata]
+    F -->|JSON| A

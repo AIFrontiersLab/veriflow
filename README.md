@@ -15,3 +15,22 @@ uvicorn main:app --reload
 
 POST /process
 Body: {"text": "string", "operation": "upper|lower|reverse|words"}
+
+## Architecture
+
+![Architecture](docs/architecture.png)
+
+<details>
+<summary>Mermaid source</summary>
+
+```mermaid
+flowchart LR
+    A[Client] -->|POST /process| B(FFastAPI App)
+    B -->|Validate| C{Pydantic Model}
+    C -->|Valid| D[Process Text]
+    C -->|Invalid| E[400 Error]
+    D -->|Transform| F[Result + Metadata]
+    F -->|JSON| A
+```
+
+</details>
